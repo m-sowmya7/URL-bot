@@ -3,18 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"node index.js\" \"node bot.js\""
   },
   "author": "sowmya",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.8.1",
+    "cors": "^2.8.5",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.10.0",
     "nanoid": "^5.0.9",
     "nodemon": "^3.1.9",
     "shortid": "^2.2.17"
   },
-    "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }

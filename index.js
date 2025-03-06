@@ -1,14 +1,19 @@
 import express, { json } from 'express';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 const app = express();
 import  {connectToMongoDb}  from './mongo.js';
 import urlRoute from './routes/url.js';
 import URL from './models/url.js';
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 
-connectToMongoDb('mongodb://127.0.0.1:27017/url-shortner').then(console.log('Connected to mongoDB'));
+connectToMongoDb(process.env.MONGO_DB_CONNECT)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
 
 app.use(json());
 app.use('/url', urlRoute);
+app.use(express.json());
 
 app.get('/:shortId', async (req, res) => {
     try {
@@ -33,3 +38,5 @@ app.get('/:shortId', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running at ${PORT}`));
+
+module.exports = app;
