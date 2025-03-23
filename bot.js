@@ -2,8 +2,7 @@ import { Client, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
 import axios from 'axios';
 
-dotenv.config({ path: '.env.local' });
-
+dotenv.config();
 const client = new Client({ 
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] 
 });
@@ -20,25 +19,22 @@ client.on("messageCreate", async (message) => {
     
     if (command === "!shorten" && args[1]) {
         try {
-            const response = await axios.post("http://localhost:8001/url", {
+            // Update the API endpoint to point to the production URL
+            const response = await axios.post("https://url-shortner-wine-seven.vercel.app/url", {
                 url: args[1],
             });
     
-            // console.log("API Response:", response.data); 
-    
             if(response.data.miniId) {
-                message.reply(`Shortened URL: http://localhost:8001/${response.data.miniId}`);
+                message.reply(`Shortened URL: https://zippy/${response.data.miniId}`);
             }
             else {
                 message.reply("Error: No miniId returned");
             }
         } catch (error) {
-            // console.error("Error:", error.response?.data || error.message);
+            console.error("Error:", error.response?.data || error.message);
             message.reply("Error generating shortened URL.");
         }
     }
-    
- 
 });
 
 client.login(process.env.DISCORD_TOKEN);
