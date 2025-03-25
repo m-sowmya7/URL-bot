@@ -25,7 +25,7 @@ client.on("messageCreate", async (message) => {
             });
     
             if(response.data.miniId) {
-                message.reply(`Shortened URL: https://zippy/${response.data.miniId}`);
+                message.reply(`Shortened URL: https://url-shortner-wine-seven.vercel.app/${response.data.miniId}`);
             }
             else {
                 message.reply("Error: No miniId returned");
