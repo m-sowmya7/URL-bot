@@ -20,12 +20,12 @@ client.on("messageCreate", async (message) => {
     if (command === "!shorten" && args[1]) {
         try {
             // Update the API endpoint to point to the production URL
-            const response = await axios.post("https://url-shortner-wine-seven.vercel.app/url", {
+            const response = await axios.post("https://zippy.smyweb.xyz/url", {
                 url: args[1],
             });
     
             if(response.data.miniId) {
-                message.reply(`Shortened URL: https://url-shortner-wine-seven.vercel.app/${response.data.miniId}`);
+                message.reply(`Shortened URL: https://zippy.smyweb.xyz/${response.data.miniId}`);
             }
             else {
                 message.reply("Error: No miniId returned");
